@@ -1,1 +1,1 @@
-# Laerning with GPU Gems
+# Learning with GPU Gems
