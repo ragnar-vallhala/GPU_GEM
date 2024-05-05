@@ -20,6 +20,8 @@ add_executable(${project} ${SOURCES})
 
 target_link_libraries(${project} PRIVATE glfw)
 
-# Optional: Set C++ standard
+
 set_target_properties(${project} PROPERTIES CXX_STANDARD 17)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
