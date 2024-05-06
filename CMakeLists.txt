@@ -11,7 +11,7 @@ include_directories(${CMAKE_SOURCE_DIR}/
 
 # Add your source files
 set(SOURCES
-    ${CMAKE_SOURCE_DIR}/test/glfwWindow.cpp
+    ${CMAKE_SOURCE_DIR}/test/main.cpp
     ${CMAKE_SOURCE_DIR}/src/glad.c
     ${CMAKE_SOURCE_DIR}/src/imgui_demo.cpp
     ${CMAKE_SOURCE_DIR}/src/imgui_draw.cpp
