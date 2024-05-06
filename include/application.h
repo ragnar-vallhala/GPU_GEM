@@ -11,8 +11,10 @@ public:
     Application();
     ~Application();
     void run();
+    void putFPS();
 private:
     WindowHandler *m_windowHandler = nullptr;
     IMGUI *m_imgui = nullptr;
+    std::chrono::time_point<std::chrono::system_clock> m_lastTime;
 };
 #endif
