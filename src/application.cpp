@@ -2,8 +2,8 @@
 
 Application::Application()
 {
-    m_windowHandler = new WindowHandler("Ragnar-Vallahala");
-    m_imgui = new IMGUI(m_windowHandler->getWindow());
+    this->m_windowHandler = new WindowHandler("Ragnar-Vallahala");
+    this->m_imgui = new IMGUI(m_windowHandler->getWindow());
 }
 
 Application::~Application()
@@ -24,13 +24,16 @@ void Application::run()
         m_windowHandler->processInput();
         m_imgui->renderUI(f);
         m_imgui->IMGUIRender();
-        {
-            auto diff = std::chrono::system_clock::now() - currentTime;
-            float fps = 1/ (std::chrono::duration_cast<std::chrono::milliseconds>(diff).count() / 1000.0f);
-            currentTime = std::chrono::system_clock::now();
-            glfwSetWindowTitle(m_windowHandler->getWindow(),std::to_string(fps).c_str());
-        }
+        this->putFPS();
         glfwSwapBuffers(m_windowHandler->getWindow());
         glfwPollEvents();
     }
+}
+
+void Application::putFPS()
+{
+    auto diff = std::chrono::system_clock::now() - m_lastTime;
+    float fps = 1/ (std::chrono::duration_cast<std::chrono::milliseconds>(diff).count() / 1000.0f);
+    m_lastTime = std::chrono::system_clock::now();
+    glfwSetWindowTitle(m_windowHandler->getWindow(),("Ragnar-Vallhala\t" + std::to_string(fps)).c_str());
 }
