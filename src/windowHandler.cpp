@@ -1,4 +1,4 @@
-#include "window_handler.h"
+#include "windowHandler.h"
 
 
 WindowHandler::WindowHandler(const char* window_name)

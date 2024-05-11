@@ -5,34 +5,36 @@ set(project GPU_Gem)
 project(${project})
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/glfw)
+add_subdirectory(${CMAKE_SOURCE_DIR}/glm)
+add_subdirectory(${CMAKE_SOURCE_DIR}/assimp)
+
 include_directories(${CMAKE_SOURCE_DIR}/
                     ${CMAKE_SOURCE_DIR}/include
+                    ${CMAKE_SOURCE_DIR}/imgui
 )
 
-# Add your source files
-set(SOURCES
+# Source files
+file(GLOB_RECURSE SOURCES
     ${CMAKE_SOURCE_DIR}/test/main.cpp
-    ${CMAKE_SOURCE_DIR}/src/glad.c
-    ${CMAKE_SOURCE_DIR}/src/imgui_demo.cpp
-    ${CMAKE_SOURCE_DIR}/src/imgui_draw.cpp
-    ${CMAKE_SOURCE_DIR}/src/imgui_init.cpp
-    ${CMAKE_SOURCE_DIR}/src/imgui_impl_glfw.cpp
-    ${CMAKE_SOURCE_DIR}/src/imgui_impl_opengl3.cpp
-    ${CMAKE_SOURCE_DIR}/src/imgui_tables.cpp
-    ${CMAKE_SOURCE_DIR}/src/imgui_widgets.cpp
-    ${CMAKE_SOURCE_DIR}/src/imgui.cpp
-    ${CMAKE_SOURCE_DIR}/src/window_handler.cpp
-    ${CMAKE_SOURCE_DIR}/src/application.cpp
+    ${CMAKE_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_SOURCE_DIR}/glad/*.c
+    ${CMAKE_SOURCE_DIR}/imgui/*.cpp
 )
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
 
+if(CMAKE_BUILD_TYPE MATCHES "Debug")
+    add_compile_definitions(DEBUG)
+endif()
 
 # Add the executable
 add_executable(${project} ${SOURCES})
 
 #target_include_directories(${project})
 
-target_link_libraries(${project} PRIVATE glfw opengl32.lib)
+target_link_libraries(${project} PRIVATE glfw opengl32.lib glm::glm assimp)
 #target_link_directories(${project} PRIVATE libs/lib-vc2010-64)
 set_target_properties(${project} PROPERTIES CXX_STANDARD 17)
 

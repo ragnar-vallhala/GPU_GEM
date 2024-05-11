@@ -36,6 +36,6 @@ void IMGUI::renderUI(float &f)
 {
     ImGui::Begin("MainWindow");
     ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-    std::cout<<f<<std::endl;
+    //std::cout<<f<<std::endl;
     ImGui::End();
 }
