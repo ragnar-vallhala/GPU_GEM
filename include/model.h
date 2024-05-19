@@ -3,36 +3,33 @@
 #ifdef DEBUG
 #include <iostream>
 #endif
+#include <vector>
+#include <string>
 #include "shader.h"
+#include "meshes.h"
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 class Model
 {
 
 public:
-    Model();
-    ~Model();
-    void draw();
-    void setVertex(const float* vertices, unsigned int count);
-    void bindVAO();
-    void loadShader(const char* vertexShaderPath, const char* fragmentShaderPath);
-    bool isVertexAttribPointerSet();
-	bool isVBOSet();
-	bool isShaderSet();
-    void setVBO();
-    void SetAttribPointer(int attribIndex, int countOfValues, int stride, long long int offset);
+    Model(char *path)
+    {
+        loadModel(path);
+    }
+    void draw(Shader &shader);
 
 private:
-    const float* m_vertices;
-    unsigned int m_VAO;
-    unsigned int m_VBO;
-    unsigned int m_EBO;
-    unsigned int m_indices;
-    unsigned int m_texture;
-    unsigned int m_countOfVertices;
-    bool m_isVertexAttribPointerSet=false;
-	bool m_isVBOSet=false;
-	bool m_isShaderSet=false;
-    Shader* m_shader=nullptr;    
-};
+    // model data
+    std::vector<Mesh> m_meshes;
+    std::string m_directory;
 
+    void loadModel(const std::string path);
+    void processNode(aiNode *node, const aiScene *scene);
+    Mesh processMesh(aiMesh *mesh, const aiScene *scene);
+    std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type,
+                                         std::string typeName);
+};
 
 #endif
